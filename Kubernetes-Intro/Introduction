@@ -1,0 +1,90 @@
+# kubernetes :::: Container Orchestration Platform
+
+Containers :::: that is help to run enviorment and spin app in isolated env over docker or smilier.
+
+Docker podman Nomad ---- container spin 
+
+--- swarm HA , entrprise application , service discovery or multi managent 
+
+Orchestration refers to the coordination and management of complex, automated IT systems, applications, and services to streamline workflows. 
+
+Kubernetes is a portable, extensible, open source platform for managing containerized workloads and services that facilitate both declarative configuration and automation. It has a large, rapidly growing ecosystem. Kubernetes services, support, and tools are widely available.
+
+- Enchaned level Networking 
+- Self Healing method 
+- service Discovery and Load Balancing 
+- scaling contianers and pods in Horizonatal 
+- without changing conf or remove container update and rollback your services 
+
+Kubernetes Architecture ::::
+
+cluster method ::: kind cluster --- procution grade EKS; own cluster 
+minikube ::: dev enviorment --- single node 
+k8s :::: racher lightweight kubernetes env. 
+openshift :::: manage by redhat purchase 
+
+componet :::: 
+https://kubernetes.io/docs/concepts/architecture/ 
+
+control plan :::: kubernetes cluster manage maintain known as a master node  
+worker node :::: kubernetes cluster provide worker setup to run all application and services
+
+3 Node setup (1 master and 2 worker ) --- bare min. 
+bare min 2 cpu and 2 gb Ram min 
+
+- kubeadm : cluster management command 
+- kubectl : client command to pass instructions 
+
+# Key component :::::
+# -----------------------------------> 
+apiserver :::: 
+- whole kubernetes services respones over http//https api calls 
+- kubernetes manage services using api as well intruction provide in api requests 
+- The API server is the front end for the Kubernetes control plane.
+- kubectl command paas any requests may cli or yaml api server.
+
+etcd ::::
+- its like a kubernetes configuration database; key value method use to store data
+- If your Kubernetes cluster uses etcd as its backing store, make sure you have a back up plan for the data.
+- if your service failure ; recovery try using config 
+
+schduler :::
+- scdule container and pod on kubernetes workers nodes 
+- as per resourece requirement and node capability according 
+
+controll manager ::: 
+- controll manager help you to process your services in cluster 
+- node to node communication and services workflow manage 
+- api https renewal certs and ca certs
+- There are many different types of controllers. Some examples of them are:
+
+    1. Node controller: Responsible for noticing and responding when nodes go down.
+    2. Job controller: Watches for Job objects that represent one-off tasks, then creates Pods to run those tasks to completion.
+    3. EndpointSlice controller: Populates EndpointSlice objects (to provide a link between Services and Pods).
+    4. ServiceAccount controller: Create default ServiceAccounts for new namespaces.
+
+kubelet ::: 
+- its kubernetes service deamon 
+- like you can start stop reload your services using one central daemon serveices 
+
+
+kube-proxy :::: 
+- manage network connection and proxy availablity 
+
+other service 
+
+CoreDns :::: name base resolution of services 
+flannel // weave // other cni  :::: pod-pod // network communiation
+
+pod ::::: 
+
+- pod manage containers in kubenretes
+- pod is a smallest unit of compute resource ( cpu and memory )
+- pod is provide containers need like storage network and enviorments and contexts 
+- pod can run with single or multiple containers 
+
+# https://kubernetes.io/docs/concepts/overview/
+# 
+
+2 Nodes ---- 1 master and 1 worker 
+
