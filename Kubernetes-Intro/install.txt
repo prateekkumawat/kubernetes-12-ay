@@ -1,12 +1,18 @@
-step 1 : # selinux must be disable or permissive 
 https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/
 https://kubernetes.io/docs/reference/networking/ports-and-protocols/
+
+step 1 : # selinux must be disable or permissive 
+
 setenforce 0 
+sed -i 's/^SELINUX=enforcing$/SELINUX=permissive/' /etc/selinux/config
 selinux file for disable/permissive -- /etc/selinux/config
+check your status using 
+getenforce
 
 step 2 : Swap Must be disable 
 swapoff -a 
 check swap using  free -m 
+commented your swap entry in your /etc/fstab file if your swap is running. 
 
 Step 3 : Install Docker in machine 
 yum install docker -y 
@@ -30,10 +36,10 @@ step 5 : install kuberbnetes repo
 cat <<EOF | sudo tee /etc/yum.repos.d/kubernetes.repo
 [kubernetes]
 name=Kubernetes
-baseurl=https://pkgs.k8s.io/core:/stable:/v1.32/rpm/
+baseurl=https://pkgs.k8s.io/core:/stable:/v1.35/rpm/
 enabled=1
 gpgcheck=1
-gpgkey=https://pkgs.k8s.io/core:/stable:/v1.32/rpm/repodata/repomd.xml.key
+gpgkey=https://pkgs.k8s.io/core:/stable:/v1.35/rpm/repodata/repomd.xml.key
 #exclude=kubelet kubeadm kubectl cri-tools kubernetes-cni
 EOF
 
