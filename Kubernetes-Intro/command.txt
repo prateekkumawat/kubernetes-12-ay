@@ -1,0 +1,35 @@
+# kubectl get node         // Detailed for gettting node status 
+
+# kubectl describe node ip-172-31-34-175.ap-south-1.compute.internal   // Describe nodes details 
+
+# kubectl get pod -A    // running all pod show 
+
+# kubectl get pod  // show default namespace pods 
+
+# kubectl get pod -n kube-system   // show kube-system namespace all pods 
+
+# kubectl create ns ns-name  // create a namespace 
+
+# kubectl get ns   // show all namespaces 
+
+# kubectl delete ns  namespace_name // delete namespace 
+
+# kubectl run nginx --image=nginx --port=80/tcp -n prateek 
+
+# kubectl get pod -n prateek 
+
+# kubectl exec -it pod_name -n namespace -- bash  // connect with pod 
+
+# kubectl exec -it nginx -n prateek -- bash 
+
+# kubectl expose pod nginx -n prateek --type=ClusterIP   // expose pod inside cluster
+
+# kubectl expose pod nginx -n prateek --type=NodePort  // expose pod outside cluster port range 30000-32676 
+
+# kubectl get svc -A   // show all svc 
+
+# kubectl describe svc nginx -n prteek   // details of svc 
+
+# kubectl delete svc nginx -n prateek   // delete svc 
+
+# kubectl delete pod podname -n namespace  // delete pod 
