@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechFlow - IT Solutions</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 100%);
+            color: #e0e0e0;
+            line-height: 1.6;
+        }
+        
+        header {
+            background: rgba(10, 14, 39, 0.95);
+            padding: 1rem 2rem;
+            border-bottom: 2px solid #00d4ff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #00d4ff;
+            text-shadow: 0 0 10px #00d4ff;
+        }
+        
+        nav a {
+            color: #e0e0e0;
+            text-decoration: none;
+            margin-left: 2rem;
+            transition: color 0.3s;
+        }
+        
+        nav a:hover {
+            color: #00d4ff;
+            text-shadow: 0 0 10px #00d4ff;
+        }
+        
+        .hero {
+            height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.1) 0%, rgba(255, 0, 128, 0.1) 100%);
+            border-bottom: 2px solid #00d4ff;
+        }
+        
+        .hero-content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            color: #00d4ff;
+            text-shadow: 0 0 20px #00d4ff;
+        }
+        
+        .hero-content p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            color: #b0b0b0;
+        }
+        
+        .btn {
+            padding: 0.8rem 2rem;
+            background: #00d4ff;
+            color: #0a0e27;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+            box-shadow: 0 0 15px #00d4ff;
+        }
+        
+        .btn:hover {
+            background: #ff0080;
+            box-shadow: 0 0 20px #ff0080;
+        }
+        
+        .services {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            padding: 3rem 2rem;
+        }
+        
+        .service-card {
+            background: rgba(26, 31, 58, 0.8);
+            padding: 2rem;
+            border: 2px solid #00d4ff;
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+        
+        .service-card:hover {
+            background: rgba(0, 212, 255, 0.1);
+            box-shadow: 0 0 20px #00d4ff;
+            transform: translateY(-5px);
+        }
+        
+        .service-card h3 {
+            color: #00d4ff;
+            margin-bottom: 1rem;
+        }
+        
+        footer {
+            background: rgba(10, 14, 39, 0.95);
+            border-top: 2px solid #00d4ff;
+            padding: 2rem;
+            text-align: center;
+            color: #b0b0b0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">TechFlow</div>
+        <nav>
+            <a href="#services">Services</a>
+            <a href="#about">About</a>
+            <a href="#contact">Contact</a>
+        </nav>
+    </header>
+    
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Next-Gen IT Solutions</h1>
+            <p>Accelerating your digital transformation</p>
+            <button class="btn">Get Started</button>
+        </div>
+    </section>
+    
+    <section id="services" class="services">
+        <div class="service-card">
+            <h3>Cloud Infrastructure</h3>
+            <p>Scalable and secure cloud solutions for enterprise needs.</p>
+        </div>
+        <div class="service-card">
+            <h3>Cybersecurity</h3>
+            <p>Advanced threat protection and compliance management.</p>
+        </div>
+        <div class="service-card">
+            <h3>AI & Automation</h3>
+            <p>Intelligent automation to optimize business processes.</p>
+        </div>
+    </section>
+    
+    <footer>
+        <p>&copy; 2024 TechFlow. All rights reserved.</p>
+    </footer>
+</body>
+</html>
