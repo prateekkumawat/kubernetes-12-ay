@@ -31,3 +31,7 @@ spec:
                 minimal contain  ------- reuests 
 
 
+# install k9s in linux 
+sourec: https://github.com/derailed/k9s
+
+curl -sS https://webinstall.dev/k9s | bash
