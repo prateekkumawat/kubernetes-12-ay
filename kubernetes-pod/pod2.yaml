@@ -23,15 +23,14 @@ metadata:
   namespace: default
 spec:
   selector:
-    app: webapp
+    app.kubernetes.io/name: webapp
   type: ClusterIP
   sessionAffinity: None
   sessionAffinityConfig:
     clientIP:
       timeoutSeconds: 10800
   ports:
-  - name: webapp
-    protocol: TCP
+  - protocol: TCP
     port: 80 
     targetPort: 80
-    
+    name: webapp    
