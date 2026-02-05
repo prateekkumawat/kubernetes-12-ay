@@ -1,0 +1,9 @@
+1. create a nginx deployment using below pointers: 
+- create a index page with content "Hello This is my Nginx web world hosted by pod"
+- build image with name hostweb and push to your docker rigstry 
+- create a deployment name webapp using above image 
+- expose svc container port 80 and target port 82 
+
+2. create a jenkins deployment and expose 
+
+3. setup a static website over kubernetes 
