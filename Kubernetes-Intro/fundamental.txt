@@ -1,0 +1,81 @@
+# kubernetes managment approch :
+-  Imperative method --- step by step Ad-hoc command 
+-  declative method  --- yaml 
+
+any ide for developemnt ::: vscode sublime notepad++ 
+
+sampele yaml 
+
+
+apiVersion: v1      // details of api 
+kind: Pod           // type of resource 
+metadata:           // collect information about resource like name lable and namespaces
+  name: myapp
+  labels:
+    app.kubernetes.io/name: myapp
+spec:
+  containers:        // container details     
+  - name: myapp
+    image: <Image>
+    resources:        // minium and limits resource 
+      limits:
+        memory: "128Mi"
+        cpu: "500m"
+    ports:                // container port no 
+      - containerPort: <Port>
+
+
+# kubernetes cpu 1cpu = 1000m   1   1.5
+             memory  Mi or Gi   2000Mi 2Gi
+  resoures :::: highest uses once load increase ---- limits 
+                minimal contain  ------- reuests 
+
+
+# install k9s in linux 
+sourec: https://github.com/derailed/k9s
+
+curl -sS https://webinstall.dev/k9s | bash
+
+
+# Service ::::
+- EXPOSE YOUR SERvices in your cluster or network associated. 
+- when your multiple pod is runnung manage traffic on that 
+- The available type values and their behaviors are:
+
+ClusterIP
+Exposes the Service on a cluster-internal IP. 
+Choosing this value makes the Service only reachable from within the cluster. 
+This is the default that is used if you don't explicitly specify a type for a Service. 
+You can expose the Service to the public internet using an Ingress or a Gateway.
+
+NodePort
+Exposes the Service on each Node's IP at a static port (the NodePort). 
+To make the node port available, Kubernetes sets up a cluster IP address, 
+the same as if you had requested a Service of type: ClusterIP.
+
+LoadBalancer
+Exposes the Service externally using an external load balancer. 
+Kubernetes does not directly offer a load balancing component; 
+you must provide one, or you can integrate your Kubernetes cluster with a cloud provider.
+
+ExternalName
+Maps the Service to the contents of the externalName field 
+(for example, to the hostname api.foo.bar.example). 
+The mapping configures your cluster's DNS server to return a CNAME record with 
+that external hostname value. No proxying of any kind is set up.
+
+
+# curl http://10.102.154.168:82     // setup pod to pod communication using svc ip 
+<b> Hello Nginx Webpage Serving using web based content </b>
+
+# curl http://pod1:82  // setup using pod to pod using svc name  
+<b> Hello Nginx Webpage Serving using web based content </b>
+
+# curl http://pod1.default.svc.cluster.local:82 // pod std discovery name 
+<b> Hello Nginx Webpage Serving using web based content </b>
+
+service discovery svcname.namespace.svc.cluster.local 
+
+wordpress application pod ----------> database pod 
+
+now wordpress need pod details of db  ----- hostname will be db-svc-name.db-namespace.svc.cluster.local
