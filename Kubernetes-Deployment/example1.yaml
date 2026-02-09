@@ -33,7 +33,24 @@ spec:
             cpu: "200m"
         ports:
         - containerPort: 80
-
+        command:
+        - /bin/sh
+        - -c
+        - |
+          cat <<EOF > /usr/share/nginx/html/index.html
+          <!DOCTYPE html>
+          <html>
+          <head>
+            <title>Kubernetes Pod Info</title>
+          </head>
+          <body style="font-family: Arial;">
+            <h1>Nginx Kubernetes Test</h1>
+            <p><b>Pod Name:</b> $POD_NAME</p>
+            <p><b>Pod IP:</b> $POD_IP</p>
+          </body>
+          </html>
+          EOF
+          nginx -g 'daemon off;'
 ---
 apiVersion: v1
 kind: Service
