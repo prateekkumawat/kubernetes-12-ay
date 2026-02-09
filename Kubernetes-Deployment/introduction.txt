@@ -25,3 +25,6 @@ Use the status of the Deployment as an indicator that a rollout has stuck.
 Clean up older ReplicaSets that you don't need anymore.
 
 https://kubernetes.io/docs/concepts/workloads/controllers/deployment/
+
+
+# create a mysql application using deployment 
