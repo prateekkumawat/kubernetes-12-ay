@@ -14,7 +14,16 @@ spec:
     spec:
       containers:
       - name: example-app1
-        image: nginx:latest
+        image: prateekkumawat/kubernetes:podlable
+        env:
+          - name: POD_NAME
+            valueFrom:
+              fieldRef:
+                fieldPath: metadata.name
+          - name: POD_IP
+            valueFrom:
+              fieldRef:
+                fieldPath: status.podIP
         resources:
           requests: 
             memory: "100Mi"
