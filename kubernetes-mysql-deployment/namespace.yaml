@@ -1,0 +1,6 @@
+apiVersion: apps/v1
+kind: namespace
+metadata: 
+  name: database
+  labels: 
+    app: database-app
