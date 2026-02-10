@@ -7,3 +7,5 @@
 2. create a jenkins deployment and expose 
 
 3. setup a static website over kubernetes 
+
+4. create a postgresql database with secret using deployment 
