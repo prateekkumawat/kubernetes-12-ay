@@ -79,3 +79,10 @@ service discovery svcname.namespace.svc.cluster.local
 wordpress application pod ----------> database pod 
 
 now wordpress need pod details of db  ----- hostname will be db-svc-name.db-namespace.svc.cluster.local
+
+
+Secret :::: 
+- kubernetes secret used for manage senstive data in kubernets 
+- kubernetes secret uses secret data using base64 encode 
+- all type admin password keys tls and token can be manage by secret 
+- secret can be applied in yaml using env 
