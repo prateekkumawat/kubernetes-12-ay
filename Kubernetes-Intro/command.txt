@@ -33,3 +33,11 @@
 # kubectl delete svc nginx -n prateek   // delete svc 
 
 # kubectl delete pod podname -n namespace  // delete pod 
+
+# kubectl get secret -A  // check availabel secret 
+
+# kubectl describe  secret -n namespace secretname  // describe your secret 
+
+# kubectl edit  secret -n namespace secretname
+
+# # kubectl delete  secret -n namespace secretname
