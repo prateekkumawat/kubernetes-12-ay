@@ -33,3 +33,42 @@ spec:
               key: password 
         - name: POSTGRES_DB
           value: tempdb 
+
+---
+# setup pgadmin setup for postgres connect 
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pgadmin
+  namespace: database
+spec:
+  selector:
+    matchLabels:
+      app: database-app
+  template:
+    metadata:
+      labels:
+        app: database-app
+    spec:
+      containers:
+      - name: pgadmin
+        image: elestio/pgadmin:latest
+        resources:
+          requests: 
+            memory: "200Mi"
+            cpu: "300m"
+          limits:
+            memory: "500Mi"
+            cpu: "800m"
+        ports:
+        - containerPort: 8080
+        env: 
+        - name: PGADMIN_DEFAULT_EMAIL
+          value: admin@email.com
+        - name: PGADMIN_DEFAULT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: postgre-pgadmin-pass
+              key: password   
+              
+
