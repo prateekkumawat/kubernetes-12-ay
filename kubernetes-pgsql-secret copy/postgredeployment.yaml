@@ -44,11 +44,11 @@ metadata:
 spec:
   selector:
     matchLabels:
-      app: database-app
+      app: database-connect-app
   template:
     metadata:
       labels:
-        app: database-app
+        app: database-connect-app
     spec:
       containers:
       - name: pgadmin

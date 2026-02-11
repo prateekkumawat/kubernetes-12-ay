@@ -19,7 +19,7 @@ metadata:
   namespace: database
 spec:
   selector:
-    app: database-app
+    app: database-connect-app
   type: NodePort
   ports:
   - port: 8080
