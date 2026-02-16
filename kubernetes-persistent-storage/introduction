@@ -1,0 +1,22 @@
+### Why volumes are important ####
+# Data persistence: 
+On-disk files in a container are ephemeral, which presents some problems for non-trivial applications when running in containers. One problem occurs when a container crashes or is stopped, the container state is not saved so all of the files that were created or modified during the lifetime of the container are lost. After a crash, kubelet restarts the container with a clean state.
+
+# Shared storage:::
+Another problem occurs when multiple containers are running in a Pod and need to share files. It can be challenging to set up and access a shared filesystem across all of the containers.
+
+# A PersistentVolume (PV) is a piece of storage in the cluster that has been provisioned by an administrator or dynamically provisioned
+
+# A PersistentVolumeClaim (PVC) is a request for storage by a user. It is similar to a Pod. Pods consume node resources and PVCs consume PV resources.
+
+# Reclaiming:::: 
+When a user is done with their volume, they can delete the PVC objects from the API that allows reclamation of the resource. The reclaim policy for a PersistentVolume tells the cluster what to do with the volume after it has been released of its claim. Currently, volumes can either be Retained, Recycled, or Deleted
+ - --- Retained ::: 
+ - When the PersistentVolumeClaim is deleted, the PersistentVolume still exists and the volume is considered "released". 
+ - But it is not yet available for another claim because the previous claimant's data remains on the volume.
+
+ - --- Delete :::: 
+ - when you delete data from kubernetes,  deletion removes both the PersistentVolume object from Kubernetes, as well as the associated storage asset in the external infrastructure. 
+
+ - --- Reclaim ::: 
+ - If supported by the underlying volume plugin, the Recycle reclaim policy performs a basic scrub (rm -rf /thevolume/*) on the volume and makes it available again for a new claim.
