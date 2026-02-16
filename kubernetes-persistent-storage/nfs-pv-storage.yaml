@@ -27,7 +27,7 @@ spec:
       storage: 1G
   volumeMode: Filesystem
   accessModes:
-    - ReadWriteOncnfs-store-
+    - ReadWriteOnce
 ---
 apiVersion: nfs-store-
 kind: Pod
