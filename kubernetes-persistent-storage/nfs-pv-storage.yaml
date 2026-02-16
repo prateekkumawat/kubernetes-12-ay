@@ -50,7 +50,7 @@ spec:
         cpu: "500m"
     command: 
     - sleep
-    - 3000
+    - "3000"
     volumeMounts:
     - name: nfs-mount-path
       mountPath: /opt
