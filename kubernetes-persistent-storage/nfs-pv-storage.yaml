@@ -29,10 +29,11 @@ spec:
   accessModes:
     - ReadWriteOnce
 ---
-apiVersion: nfs-store-
+apiVersion: apps/v1
 kind: Pod
 metadata:
   name: nfs-store-app
+  namespace: default
   labels:
     app.kubernetes.io/name: myapp
 spec:
