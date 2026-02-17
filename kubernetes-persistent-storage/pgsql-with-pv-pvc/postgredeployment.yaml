@@ -39,7 +39,7 @@ spec:
           value: tempdb 
         volumeMounts:
         - name:  pgdata
-          mountPath: /var/lib/postgesql/18/docker
+          mountPath: /var/lib/postgresql/18/docker
 
 ---
 # setup pgadmin setup for postgres connect 
