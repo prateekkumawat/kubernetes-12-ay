@@ -12,7 +12,7 @@ spec:
       labels:
         app: database-app
     spec:
-      volumeMounts:
+      volumes:
       - name:  pgdata
         persistentVolumeClaim: 
           claimName: nfs-datastore-vol1-database
