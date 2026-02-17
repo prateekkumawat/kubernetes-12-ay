@@ -13,7 +13,7 @@ spec:
         app: database-app
     spec:
       volumes:
-      - name:  pgdata
+      - name: pgdata
         persistentVolumeClaim: 
           claimName: nfs-datastore-vol1-database
       containers:
@@ -39,7 +39,7 @@ spec:
           value: tempdb 
         volumeMounts:
         - name:  pgdata
-          mountPath: /var/lib/postgesql/
+          mountPath: /var/lib/postgesql/18/docker
 
 ---
 # setup pgadmin setup for postgres connect 
