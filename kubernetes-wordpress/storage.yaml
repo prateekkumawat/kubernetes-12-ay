@@ -1,0 +1,65 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: wordpress-storage-vol
+spec:
+  capacity:
+    storage: 1G
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Recycle
+  mountOptions:
+    - hard
+    - nfsvers=4.1
+  nfs:
+    path: /data/wpdata
+    server: 172.31.39.216
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: wp-datastore-vol1
+  namespace: wordpress
+spec:
+  resources:
+    requests:
+      storage: 1G
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteOnce
+
+
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: mysql-storage-vol
+spec:
+  capacity:
+    storage: 1G
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Recycle
+  mountOptions:
+    - hard
+    - nfsvers=4.1
+  nfs:
+    path: /data/mysqldata
+    server: 172.31.39.216
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mysql-datastore-vol1
+  namespace: wordpress
+spec:
+  resources:
+    requests:
+      storage: 1G
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteOnce
