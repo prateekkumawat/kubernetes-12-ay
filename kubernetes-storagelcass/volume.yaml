@@ -1,0 +1,14 @@
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: nfs-datastore-vol1-database
+  namespace: database
+spec:
+  resources:
+    requests:
+      storage: 1G
+  volumeMode: Filesystem
+  storageClassName: nfs-storage
+  accessModes:
+    - ReadWriteOnce

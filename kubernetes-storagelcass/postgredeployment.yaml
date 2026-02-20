@@ -1,0 +1,83 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgre
+  namespace: database
+spec:
+  selector:
+    matchLabels:
+      app: database-app
+  template:
+    metadata:
+      labels:
+        app: database-app
+    spec:
+      volumes:
+      - name: pgdata
+        persistentVolumeClaim: 
+          claimName: nfs-datastore-vol1-database
+      containers:
+      - name: postgre
+        image: postgres:latest
+        resources:
+          requests: 
+            memory: "200Mi"
+            cpu: "300m"
+          limits:
+            memory: "500Mi"
+            cpu: "800m"
+        ports:
+        - containerPort: 5432
+          name: postgre
+        env: 
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: postgre-admin-pass
+              key: password 
+        - name: POSTGRES_DB
+          value: tempdb 
+        volumeMounts:
+        - name:  pgdata
+          mountPath: /var/lib/postgresql/18/docker
+
+---
+# setup pgadmin setup for postgres connect 
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pgadmin
+  namespace: database
+spec:
+  selector:
+    matchLabels:
+      app: database-connect-app
+  template:
+    metadata:
+      labels:
+        app: database-connect-app
+    spec:
+      containers:
+      - name: pgadmin
+        image: elestio/pgadmin:latest
+        resources:
+          requests: 
+            memory: "200Mi"
+            cpu: "300m"
+          limits:
+            memory: "500Mi"
+            cpu: "800m"
+        ports:
+        - containerPort: 8080
+        env: 
+        - name: PGADMIN_DEFAULT_EMAIL
+          value: admin@email.com
+        - name: PGADMIN_LISTEN_PORT
+          value: "8080"
+        - name: PGADMIN_DEFAULT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: postgre-pgadmin-pass
+              key: password   
+              
+
