@@ -1,0 +1,14 @@
+# https://github.com/kubernetes/dashboard
+
+# Helm install 
+# https://helm.sh/docs/intro/install/
+
+
+# https://github.com/derailed/k9s    use and instaall k9s
+
+install kubernetes dashboard process 
+
+# git clone https://github.com/kubernetes-retired/dashboard.git
+# cd dashboard/charts/kubernetes-dashboard 
+# helm dependency update
+# helm install  kubernetes-dashboard . -f ./values.yaml
