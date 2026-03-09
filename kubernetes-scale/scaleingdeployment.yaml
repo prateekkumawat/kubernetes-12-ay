@@ -8,7 +8,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: apploader
-  namespae: scaler
+  namespace: scaler
 spec:
   selector:
     matchLabels:
