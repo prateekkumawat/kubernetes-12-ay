@@ -45,3 +45,6 @@ spec:
   - name: http
     port:  80
     targetPort:  80
+
+
+# pod login then run command in pod " yes &> /dev/null & " run multiple it will generate cpu load so pod start scale 
