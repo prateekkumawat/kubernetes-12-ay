@@ -43,3 +43,7 @@ spec:
   nodeSelector: 
     type: mgmt
     
+
+# kubectl label node ip-172-31-34-175.ap-south-1.compute.internal type=db
+# kubectl label node ip-172-31-35-80.ap-south-1.compute.internal type=mgmt
+# kubectl get node --show-labels
