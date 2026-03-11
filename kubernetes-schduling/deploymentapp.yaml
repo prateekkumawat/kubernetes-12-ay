@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: apple-app
+spec:
+  replicas: 2 
+  selector:
+    matchLabels:
+      app: apple-app
+  template:
+    metadata:
+      labels:
+        app: apple-app
+    spec:
+      containers:
+      - name: apple-app
+        image: nginx
+        resources:
+          requests:
+            memory: "100Mi"
+            cpu: "90m"
+          limits:
+            memory: "200Mi"
+            cpu: "120m"
+        ports:
+        - containerPort: 80
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+          - matchExpressions:
+            - key: datatype
+              operator: In
+              values:
+              - test
+      tolerations:
+      - key: "node.kubernetes.io/cpuload"
+        operator: "Equal"
+        value: "high"
+        effect: "NoSchedule"
