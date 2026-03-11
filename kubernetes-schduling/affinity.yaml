@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: myapp2
+  labels:
+    app.kubernetes.io/name: myapp2
+spec:
+  containers:
+  - name: myapp1
+    image: nginx
+    resources:
+      requests: 
+        memory: "100Mi"
+        cpu: "200m"
+      limits:
+        memory: "128Mi"
+        cpu: "500m"
+    ports:
+      - containerPort: 80
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: datatype
+            operator: In
+            values:
+            - test
+  tolerations:
+  - key: "node.kubernetes.io/cpuload"
+    operator: "Equal"
+    value: "high"
+    effect: "NoSchedule"   
