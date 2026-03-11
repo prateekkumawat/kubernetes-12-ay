@@ -24,14 +24,15 @@ spec:
             cpu: "120m"
         ports:
         - containerPort: 80
-      nodeAffinity:
-        requiredDuringSchedulingIgnoredDuringExecution:
-          nodeSelectorTerms:
-          - matchExpressions:
-            - key: datatype
-              operator: In
-              values:
-              - test
+      affinity:  
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: datatype
+                operator: In
+                values:
+                - test
       tolerations:
       - key: "node.kubernetes.io/cpuload"
         operator: "Equal"
