@@ -9,7 +9,7 @@ spec:
   - name: webapp
     image: 605134434853.dkr.ecr.ap-south-1.amazonaws.com/testrepo:webapp
     imagePullSecrets:
-      - name: ecr-login
+    - name: ecr-login
     resources:
       limits:
         memory: "128Mi"
