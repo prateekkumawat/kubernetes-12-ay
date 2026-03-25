@@ -20,7 +20,7 @@ pipeline {
         }
 
         stage("CopyContent"){
-            setps {
+            steps{
                 sh 'sudo cp -rvf $WORKSPACE/webapp/src/  /var/www/html'
             }
         }
