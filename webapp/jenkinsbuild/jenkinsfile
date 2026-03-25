@@ -5,7 +5,9 @@ pipeline {
 
     stages{
         stage("AppCode Checkout"){
-            git branch:'jenkins-learning', url: 'https://github.com/prateekkumawat/kubernetes-12-ay.git'
+            steps{
+                git branch:'jenkis-learning', url: 'https://github.com/prateekkumawat/kubernetes-12-ay.git'
+            }
         }
 
         stage("Prepareserver"){
