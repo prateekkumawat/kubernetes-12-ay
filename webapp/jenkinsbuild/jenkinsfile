@@ -14,7 +14,7 @@ pipeline {
             steps{
                 sh '''
                 sudo yum install httpd -y 
-                sudo systemct start httpd 
+                sudo systemctl start httpd 
                 sudo systemctl enable httpd '''
             }
         }
