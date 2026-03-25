@@ -1,6 +1,0 @@
-Node Selector:::
-You can constrain a Pod so that it is restricted to run on particular node(s), or to prefer to run on particular nodes. There are several ways to do this and the recommended approaches all use label selectors to facilitate the selection
-
-- specfic nodes 
-- small caps of managemnt 
-- it not give you flexabliity ( if your label node full in this case due to cpu memory not availabel so pod goes in pending status)

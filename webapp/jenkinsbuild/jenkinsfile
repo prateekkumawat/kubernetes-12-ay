@@ -1,0 +1,26 @@
+pipeline {
+    agent {
+        label 'agent1'
+    }
+
+    stages{
+        stage("AppCode Checkout"){
+            git branch:'jenkins-learning', url: 'https://github.com/prateekkumawat/kubernetes-12-ay.git'
+        }
+
+        stage("Prepareserver"){
+            steps{
+                sh '''
+                sudo yum install httpd -y 
+                sudo systemct start httpd 
+                sudo systemctl enable httpd '''
+            }
+        }
+
+        stage("CopyContent"){
+            setps {
+                sh 'sudo cp -rvf $WORKSPACE/webapp/src/  /var/www/html'
+            }
+        }
+    }
+}
