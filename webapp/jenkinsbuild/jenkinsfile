@@ -3,26 +3,36 @@ pipeline {
         label 'agent1'
     }
 
+    environment {
+        S3_BUCKET = 'amazon-jenkins-web'
+        AWS_REGION = 'ap-south-2'
+    }
+
     stages{
         stage("AppCode Checkout"){
             steps{
                 git branch:'jenkis-learning', url: 'https://github.com/prateekkumawat/kubernetes-12-ay.git'
             }
         }
-
-        stage("Prepareserver"){
-            steps{
-                sh '''
-                sudo yum install httpd -y 
-                sudo systemctl start httpd 
-                sudo systemctl enable httpd '''
+        stage("Deploy Code to S3"){
+            steps {
+                withCredentials([[
+                    $class: 'AmazonWebServicesCredentialsBinding', 
+                    credentialsId: 'aws-creds'
+                ]]) {
+                    sh '''
+                    aws s3 sync $WORKSPACE/src/ s3://$S3_BUCKET --delete
+                    '''
+                }
             }
         }
-
-        stage("CopyContent"){
-            steps{
-                sh 'sudo cp -rvf $WORKSPACE/webapp/src/  /var/www/html'
-            }
+    }    
+    post {
+        success {
+            echo "Deployment of s3 bucket success"
         }
-    }
-}
+        failure { 
+            echo "your job is failed"
+        }
+   }
+}   
