@@ -6,14 +6,37 @@ pipeline {
     environment {
         S3_BUCKET = 'amazon-jenkins-web'
         AWS_REGION = 'ap-south-2'
+        SCANNER_HOME = tool 'sonar-scanner'
     }
 
     stages{
         stage("AppCode Checkout"){
             steps{
-                git branch: 's3webapp', url: 'https://github.com/prateekkumawat/kubernetes-12-ay.git'
+                git branch: 's3/webapp/sonar', url: 'https://github.com/prateekkumawat/kubernetes-12-ay.git'
             }
         }
+
+        stage ("Sonar Analysis"){
+            steps{
+                dir('src/'){
+                    withSonarQubeEnv('sonar-server') {
+                       sh ''' 
+                         $SCANNER_HOME/bin/sonar-scanner \
+                        -Dsonar.projectKey=s3-webapp-sonar \
+                        -Dsonar.projectName=s3-webapp-sonar  '''
+                    }
+                }             
+            }
+        }
+
+        stage("Sonar QualityGate"){
+            steps{
+                script {
+                  waitForQualityGate abortPipeline: false, credentialsId: 'sonar-token' 
+                }
+            }
+        }
+
         stage("Deploy Code to S3"){
             steps {
                 withCredentials([[
