@@ -1,0 +1,6 @@
+services:
+  webapp: 
+    container_name: webapp
+    image: prateekkumawat/webapp:web1.1.1
+    ports:
+      - 8088:80
