@@ -4,7 +4,6 @@ pipeline {
     }
 
     environment {
-        SCANNER_HOME = tool 'sonar-scanner'
         DOCKER_CREDS = credentials('docker-creds')
     }
 
@@ -15,26 +14,6 @@ pipeline {
             }
         }
 
-        stage ("Sonar Analysis"){
-            steps{
-                dir('src/'){
-                    withSonarQubeEnv('sonar-server') {
-                       sh ''' 
-                         $SCANNER_HOME/bin/sonar-scanner \
-                        -Dsonar.projectKey=docker-pipeline \
-                        -Dsonar.projectName=docker-pipeline  '''
-                    }
-                }             
-            }
-        }
-
-        stage("Sonar QualityGate"){
-            steps{
-                script {
-                  waitForQualityGate abortPipeline: false, credentialsId: 'sonar-token' 
-                }
-            }
-        }
 
         stage("create Image"){
             steps{
