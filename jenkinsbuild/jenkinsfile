@@ -31,7 +31,7 @@ pipeline {
         stage("Teams Notification") {
             steps {
                 script {
-                    withCredentials([string(credentialsId: 'TEAM_WEBHOOK', variable: 'WEBHOOK_URL')]) {
+                    withCredentials([string(credentialsId: 'TEAMS_WEBHOOK', variable: 'WEBHOOK_URL')]) {
                         sh """
                         curl -H 'Content-Type: application/json' \
                         -d '{
