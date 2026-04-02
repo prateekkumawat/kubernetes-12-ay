@@ -4,15 +4,14 @@ pipeline {
     }
 
     environment {
-        S3_BUCKET = 'amazon-jenkins-web'
-        AWS_REGION = 'ap-south-2'
         SCANNER_HOME = tool 'sonar-scanner'
+        DOCKER_CREDS = credentials('docker-creds')
     }
 
     stages{
         stage("AppCode Checkout"){
             steps{
-                git branch: 's3/webapp/sonar', url: 'https://github.com/prateekkumawat/kubernetes-12-ay.git'
+                git branch: 'docker-pipeline', url: 'https://github.com/prateekkumawat/kubernetes-12-ay.git'
             }
         }
 
@@ -22,8 +21,8 @@ pipeline {
                     withSonarQubeEnv('sonar-server') {
                        sh ''' 
                          $SCANNER_HOME/bin/sonar-scanner \
-                        -Dsonar.projectKey=s3-webapp-sonar \
-                        -Dsonar.projectName=s3-webapp-sonar  '''
+                        -Dsonar.projectKey=docker-pipeline \
+                        -Dsonar.projectName=docker-pipeline  '''
                     }
                 }             
             }
@@ -37,18 +36,18 @@ pipeline {
             }
         }
 
-        stage("Deploy Code to S3"){
-            steps {
-                withCredentials([[
-                    $class: 'AmazonWebServicesCredentialsBinding', 
-                    credentialsId: 'aws-creds'
-                ]]) {
-                    sh '''
-                    aws s3 sync $WORKSPACE/src/ s3://$S3_BUCKET --delete
-                    '''
-                }
+        stage("create Image"){
+            steps{
+                sh 'docker build -t prateekkumawat/webapp:app-1.1.1 .'
             }
         }
+
+        stage("pushImage")
+          steps{
+               sh 'docker login -u $DOCKER_CREDS_USR -p $DOCKER_CREDS_PSW '
+               sh ' docker push prateekkumawat/webapp:app-1.1.1 '
+          }
+
         stage("Teams Notification") {
             steps {
                 script {
