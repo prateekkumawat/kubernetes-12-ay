@@ -35,12 +35,6 @@ pipeline {
           }
         }  
 
-        stage(create container){
-            steps{
-                sh 'docker-compose up -d'
-            }
-        }
-
         stage("Teams Notification") {
             steps {
                 script {
