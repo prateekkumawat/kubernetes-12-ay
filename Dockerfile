@@ -8,7 +8,7 @@ COPY pom.xml .
 COPY src ./src
 
 # Package the application
-RUN mvn clean package -DskipTests
+RUN mvn clean install package
 
 # === Stage 2: Run the application ===
 FROM openjdk:17.0.2-jdk-slim
