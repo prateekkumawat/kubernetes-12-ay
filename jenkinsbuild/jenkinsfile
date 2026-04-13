@@ -3,10 +3,6 @@ pipeline {
         label 'agent1'
     }
 
-    environment {
-        DOCKER_CREDS = credentials('docker-creds')
-    }
-
     stages{
         stage("AppCode Checkout"){
             steps{
@@ -14,28 +10,27 @@ pipeline {
             }
         }
 
-
-        stage("create Image"){
-            steps{
-                sh 'docker build -t prateekkumawat/webapp:java-1.1.1 .'
+        stage("Init"){
+            steps {
+                dir('terraform/'){
+                sh " terraform init "
+                } 
             }
         }
-
-        stage("trivy scan"){
-          steps{
-                sh '''
-                trivy image prateekkumawat/webapp:java-1.1.1 > trivy_report_${BUILD_NUMBER}.txt
-                aws s3 cp trivy_report_${BUILD_NUMBER}.txt s3://amazon-jenkins-web
-                '''
-            }  
-        }
-
-        stage("pushImage"){
-          steps{
-               sh 'docker login -u $DOCKER_CREDS_USR -p $DOCKER_CREDS_PSW '
-               sh ' docker push prateekkumawat/webapp:java-1.1.1 '
-          }
-        }  
+        stage("Plan"){
+            steps {
+                dir('terraform/'){
+                    sh " terraform plan "
+                } 
+            }
+        } 
+        stage("Apply"){
+            steps {
+                dir('terraform/'){
+                    sh " terraform apply --auto-approve "
+                } 
+            }
+        }    
 
         stage("Teams Notification") {
             steps {
