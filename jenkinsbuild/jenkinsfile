@@ -12,21 +12,21 @@ pipeline {
 
         stage("Init"){
             steps {
-                dir('terraform/'){
+                dir('terraform-basic/'){
                 sh " terraform init "
                 } 
             }
         }
         stage("Plan"){
             steps {
-                dir('terraform/'){
+                dir('terraform-basic/'){
                     sh " terraform plan "
                 } 
             }
         } 
         stage("Apply"){
             steps {
-                dir('terraform/'){
+                dir('terraform-basic/'){
                     sh " terraform apply --auto-approve "
                 } 
             }
