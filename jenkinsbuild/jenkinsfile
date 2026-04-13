@@ -2,8 +2,15 @@ pipeline {
     agent {
         label 'agent1'
     }
+     
 
     stages{
+        stage("Clean Workspace") { 
+            steps {
+                cleanWs()
+            }
+        }
+        
         stage("AppCode Checkout"){
             steps{
                 git branch: 'springapp', url: 'https://github.com/prateekkumawat/kubernetes-12-ay.git'
