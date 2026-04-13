@@ -10,10 +10,10 @@ pipeline {
                 cleanWs()
             }
         }
-        
+
         stage("AppCode Checkout"){
             steps{
-                git branch: 'springapp', url: 'https://github.com/prateekkumawat/kubernetes-12-ay.git'
+                git branch: 'terraform', url: 'https://github.com/prateekkumawat/kubernetes-12-ay.git'
             }
         }
 
