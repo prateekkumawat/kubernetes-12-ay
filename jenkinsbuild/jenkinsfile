@@ -2,44 +2,68 @@ pipeline {
     agent {
         label 'agent1'
     }
-     
+
+    environment {
+        SCANNER_HOME = tool 'sonar-scanner'
+        DOCKER_CREDS = credentials('docker-creds')
+    }
 
     stages{
-        stage("Clean Workspace") { 
-            steps {
-                cleanWs()
+        stage("Clean WorkSpaace") {
+            steps{
+              cleanWs()
             }
         }
 
         stage("AppCode Checkout"){
+            steps {
+                git branch:'project1', url:' https://github.com/prateekkumawat/jenkins-ci-8am.git'
+            }
+        }
+        
+        stage("SonarAnalysis"){
             steps{
-                git branch: 'terraform', url: 'https://github.com/prateekkumawat/kubernetes-12-ay.git'
+                dir('Application-Code/'){
+                    withSonarQubeEnv('sonar-server') {
+                      sh ''' $SCANNER_HOME/bin/sonar-scanner \
+                      -Dsonar.projectName=netflix-app \
+                      -Dsonar.projectKey=netflix-app '''
+                    }
+                }     
+            }
+        }   
+
+        stage("Sonar QualityGate"){
+            steps{
+                script {
+                  waitForQualityGate abortPipeline: false, credentialsId: 'sonar-token' 
+                }
             }
         }
 
-        stage("Init"){
-            steps {
-                dir('terraform-basic/'){
-                sh " terraform init "
-                } 
+        stage("CreateImage"){
+            steps{
+                dir('Application-Code/'){
+                    sh 'docker build -t prateekkumawat/netflix:0.1.1 . '
+                }            
             }
         }
-        stage("Plan"){
-            steps {
-                dir('terraform-basic/'){
-                    sh " terraform plan "
-                } 
+        
+        stage("Image scan"){
+            steps{
+              sh 'trivy image prateekkumawat/netflix:0.1.1 >> scanreport.txt '
             }
-        } 
-        stage("Apply"){
-            steps {
-                dir('terraform-basic/'){
-                    sh " terraform apply --auto-approve "
-                } 
-            }
-        }    
+        }
 
-        stage("Teams Notification") {
+        stage("push Image"){
+          steps {
+               sh 'docker login -u $DOCKER_CREDS_USR -p $DOCKER_CREDS_PSW '
+               sh ' docker push prateekkumawat/netflix:0.1.1 '
+            }
+        }
+         
+ 
+        stage("Notification") {
             steps {
                 script {
                     withCredentials([string(credentialsId: 'TEAMS_WEBHOOK', variable: 'WEBHOOK_URL')]) {
@@ -56,6 +80,7 @@ pipeline {
                                 { "name": "🟢 **Status**", "value": "**SUCCESS ✅**" },
                                 { "name": "🔢 **Build**", "value": "**#${env.BUILD_NUMBER}**" },
                                 { "name": "🌿 **Branch / Tag**", "value": "**${env.GIT_BRANCH ?: params.GIT_REF}**" },
+                                { "name": "🟢 **image**", "value": "**prateekkumawat/pythonapp:v0.0.1" },
                                 { "name": "🔗 **Build URL**", "value": "[**Open Build**](${env.BUILD_URL})" }
                             ],
                             "text": "🚀 **Build completed successfully!**"
@@ -67,6 +92,5 @@ pipeline {
                 }
             }
         }
-
-    }    
-}   
+   }
+}    
