@@ -1,0 +1,5 @@
+services:
+  netflix:
+    image: prateekkumawat/netflix:0.1.1
+    ports:
+      - "8080:8080"

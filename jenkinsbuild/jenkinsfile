@@ -63,11 +63,17 @@ pipeline {
             }
         }
          
- 
+        stage("Deploy Application"){
+            steps{
+                dir('deploy/'){
+                    sh 'docker-compose -f compose.yaml up -d '
+                }
+            }
+        }
         stage("Notification") {
             steps {
                 script {
-                    withCredentials([string(credentialsId: 'TEAMS_WEBHOOK', variable: 'WEBHOOK_URL')]) {
+                    withCredentials([string(credentialsId: 'TEAM_WEBHOOK', variable: 'WEBHOOK_URL')]) {
                         sh """
                         curl -H 'Content-Type: application/json' \
                         -d '{
