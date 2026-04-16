@@ -5,6 +5,7 @@ pipeline {
 
     environment {
         SCANNER_HOME = tool 'sonar-scanner'
+        NODEJS_HOME = tool 'nodejs'
         DOCKER_CREDS = credentials('docker-creds')
     }
 
