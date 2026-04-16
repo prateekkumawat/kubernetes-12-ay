@@ -17,7 +17,7 @@ pipeline {
 
         stage("AppCode Checkout"){
             steps {
-                git branch:'project1', url:' https://github.com/prateekkumawat/jenkins-ci-8am.git'
+                git branch:'project1', url:'https://github.com/prateekkumawat/kubernetes-12-ay.git'
             }
         }
         
