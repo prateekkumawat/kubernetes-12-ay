@@ -18,19 +18,17 @@ pipeline {
 
         stage("AppCode Checkout"){
             steps {
-                git branch:'project1', url:'https://github.com/prateekkumawat/kubernetes-12-ay.git'
+                git branch:'mern', url:'https://github.com/prateekkumawat/kubernetes-12-ay.git'
             }
         }
         
         stage("SonarAnalysis"){
             steps{
-                dir('Application-Code/'){
-                    withSonarQubeEnv('sonar-server') {
-                      sh ''' $SCANNER_HOME/bin/sonar-scanner \
-                      -Dsonar.projectName=netflix-app \
-                      -Dsonar.projectKey=netflix-app '''
-                    }
-                }     
+                withSonarQubeEnv('sonar-server') {
+                    sh ''' $SCANNER_HOME/bin/sonar-scanner \
+                    -Dsonar.projectName=ecommarce-app \
+                    -Dsonar.projectKey=ecommarce-app '''
+                }    
             }
         }   
 
@@ -45,21 +43,21 @@ pipeline {
         stage("CreateImage"){
             steps{
                 dir('Application-Code/'){
-                    sh 'docker build -t prateekkumawat/netflix:0.1.1 . '
+                    sh 'docker build -t prateekkumawat/mern:0.1.1 . '
                 }            
             }
         }
         
         stage("Image scan"){
             steps{
-              sh 'trivy image prateekkumawat/netflix:0.1.1 >> scanreport.txt '
+              sh 'trivy image prateekkumawat/mern:0.1.1 >> scanreport.txt '
             }
         }
 
         stage("push Image"){
           steps {
                sh 'docker login -u $DOCKER_CREDS_USR -p $DOCKER_CREDS_PSW '
-               sh ' docker push prateekkumawat/netflix:0.1.1 '
+               sh ' docker push prateekkumawat/mern:0.1.1 '
             }
         }
          
