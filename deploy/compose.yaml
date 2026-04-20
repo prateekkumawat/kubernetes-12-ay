@@ -1,6 +1,10 @@
 services:
-  ecommarce-app:
-    container_name: ecommarce-app
-    image: prateekkumawat/mern:0.1.1
+  redis-app:
+    container_name: redis-app
+    image: prateekkumawat/webapp:1.1.1
     ports:
-      - "8080:80"
+      - "8000:8000"
+
+  redis:
+    container_name: redis
+    image: redis:latest

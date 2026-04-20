@@ -1,29 +1,7 @@
-# Dockerfile
-
-# Use official Node.js image as base
-FROM node:18-alpine
-
-# Set working directory
-WORKDIR /app
-
-# Copy package.json and package-lock.json
-COPY package*.json ./
-
-# Install dependencies
-RUN npm install
-
-# Copy the rest of the application code
-COPY . .
-
-# Build the React app for production
-RUN npm run build
-
-# Use nginx to serve the build
-FROM nginx:alpine
-COPY --from=0 /app/build /usr/share/nginx/html
-
-# Expose port 80
-EXPOSE 80
-
-# Start nginx
-CMD ["nginx", "-g", "daemon off;"]
+# syntax=docker/dockerfile:1
+FROM python:3.4-alpine
+ADD . /code
+WORKDIR /code
+RUN pip install -r requirements.txt
+CMD ["python", "app.py"]
+EXPOSE 8000
