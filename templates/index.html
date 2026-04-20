@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redis Hit Counter</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <main class="page-shell">
+        <section class="hero-card">
+            <h1>Flask + Redis Counter</h1>
+            <p class="subtitle">A simple page that shows how many times this app has been visited.</p>
+            <div class="status-row">
+                <div>
+                    <span class="label">Visits:</span>
+                    <span class="value">{{ count }}</span>
+                </div>
+                <div>
+                    <span class="label">Redis:</span>
+                    <span class="value {{ 'online' if redis_ok else 'offline' }}">{{ 'Online' if redis_ok else 'Unavailable' }}</span>
+                </div>
+            </div>
+            <div class="message-box">
+                <p>{{ message }}</p>
+            </div>
+            <footer class="footer-note">
+                <p>Refresh the page to increment the counter.</p>
+            </footer>
+        </section>
+    </main>
+</body>
+</html>
